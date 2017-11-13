@@ -1,15 +1,17 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import { counterReducer } from './components/Counter/reducers';
+import { accountsReducer } from './components/Accounts/reducers';
+import { holdingsReducer } from './components/Holdings/reducers';
 
 
 export default combineReducers({
   routing: routerReducer,
 
-  data: {},
+  data: combineReducers({
+    accounts: accountsReducer,
+    holdings: holdingsReducer
+  }),
 
-  ui: combineReducers({
-    counter: counterReducer
-  })
+  ui: {}
 });

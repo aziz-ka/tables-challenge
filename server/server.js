@@ -1,6 +1,7 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import logger from 'koa-logger';
+import cors from '@koa/cors';
 
 import apiRouter from './router';
 
@@ -13,6 +14,7 @@ const app = new Koa();
 
 app
   .use(logger())
+  .use(cors())
   .use(bodyParser())
   .use(apiRouter.routes());
 

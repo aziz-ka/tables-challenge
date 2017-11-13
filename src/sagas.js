@@ -1,10 +1,12 @@
 import { all } from 'redux-saga/effects';
 
-import { counterSagas } from './components/Counter/sagas';
+import { accountsSagas } from './components/Accounts/sagas';
+import { holdingsSagas } from './components/Holdings/sagas';
 
 
 export default function* sagas() {
   yield all([
-    ...counterSagas
+    ...accountsSagas,
+    ...holdingsSagas
   ]);
 }
