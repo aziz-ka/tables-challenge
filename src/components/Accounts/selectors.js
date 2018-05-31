@@ -52,3 +52,8 @@ export const getAccountTypeTotalValue = createSelector(
     };
   })
 );
+
+export const getHighlightedRow = createSelector(
+  state => state.ui.highlightedRow,
+  highlightedRow => highlightedRow
+);

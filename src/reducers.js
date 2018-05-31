@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import { accountsReducer } from './components/Accounts/reducers';
+import { accountsReducer, highlightedRowReducer } from './components/Accounts/reducers';
 import { holdingsReducer } from './components/Holdings/reducers';
 
 
@@ -13,5 +13,7 @@ export default combineReducers({
     holdings: holdingsReducer
   }),
 
-  ui: {}
+  ui: combineReducers({
+    highlightedRow: highlightedRowReducer
+  })
 });

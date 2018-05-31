@@ -2,3 +2,7 @@
   background-color: #ddd;
   padding: 1rem;
 }
+
+.highlighted-row {
+  background-color: #ccc;
+}

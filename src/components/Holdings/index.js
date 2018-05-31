@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _isNull from 'lodash/isNull';
+import _isEmpty from 'lodash/isEmpty';
 
 import {
   fetchHoldings,
-  fetchHoldingsDone
+  fetchHoldingsDone,
+  handleHover
 } from './actions';
 import { getHoldings } from './selectors';
 import './styles.css';
@@ -15,8 +16,12 @@ export class Holdings extends Component {
     this.props.fetchHoldings();
   }
 
+  handleHover = (account_id, e) => {
+    this.props.handleHover(account_id);
+  }
+
   renderHoldingRow = ({ account_id, id, price, quantity, ticker, ticker_name }) => (
-    <tr key={id}>
+    <tr key={id} onMouseEnter={this.handleHover.bind(this, account_id)}>
       <td>{account_id}</td>
       <td>{ticker_name}</td>
       <td>{ticker}</td>
@@ -28,7 +33,7 @@ export class Holdings extends Component {
   render = () => {
     const { holdings=[] } = this.props;
 
-    if (_isNull(holdings)) return null;
+    if (_isEmpty(holdings)) return null;
 
     return (
       <section className='holdings-section col-xs-12'>
@@ -58,7 +63,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchHoldings,
-  fetchHoldingsDone
+  fetchHoldingsDone,
+  handleHover
 };
 
 export default connect(

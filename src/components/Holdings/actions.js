@@ -10,3 +10,8 @@ export const fetchHoldingsDone = payload => ({
   type: ACTIONS.GET_HOLDINGS_DONE,
   payload
 });
+
+export const handleHover = payload => ({
+  type: ACTIONS.HIGHLIGHT_ROW,
+  payload
+});

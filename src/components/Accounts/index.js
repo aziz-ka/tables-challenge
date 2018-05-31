@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
 import _isEmpty from 'lodash/isEmpty';
+import _find from 'lodash/find';
 
 import {
   fetchAccounts,
   fetchAccountsDone
 } from './actions';
-import { getAccounts, getAccountTypeTotalValue } from './selectors';
+import {
+  getAccounts,
+  getAccountTypeTotalValue,
+  getHighlightedRow
+} from './selectors';
 import './styles.css';
 
 
@@ -16,13 +21,18 @@ export class Accounts extends Component {
     this.props.fetchAccounts();
   }
 
-  renderAccountRow = ({ percentOfTotal, sum, type }) => (
-    <tr key={type}>
-      <td>{type}</td>
-      <td>{numeral(sum).format('$0,0[.]00')}</td>
-      <td>{numeral(percentOfTotal).format('0[.]00%')}</td>
-    </tr>
-  )
+  renderAccountRow = ({ id, percentOfTotal, sum, type }) => {
+    const account = _find(this.props.allAccounts, {id: this.props.highlightedRow}) || {};
+    const isHighlighted = account.type === type;
+
+    return (
+      <tr className={isHighlighted ? 'highlighted-row' : ''} key={type}>
+        <td>{type}</td>
+        <td>{numeral(sum).format('$0,0[.]00')}</td>
+        <td>{numeral(percentOfTotal).format('0[.]00%')}</td>
+      </tr>
+    );
+  }
 
   render = () => {
     const { accountTypeTotalValues=[] } = this.props;
@@ -50,8 +60,9 @@ export class Accounts extends Component {
 }
 
 const mapStateToProps = state => ({
-  accounts: getAccounts(state),
-  accountTypeTotalValues: getAccountTypeTotalValue(state)
+  accountTypeTotalValues: getAccountTypeTotalValue(state),
+  allAccounts: getAccounts(state),
+  highlightedRow: getHighlightedRow(state)
 });
 
 const mapDispatchToProps = {

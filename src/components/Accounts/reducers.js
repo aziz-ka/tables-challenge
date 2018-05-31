@@ -10,3 +10,13 @@ export function accountsReducer(state=null, { payload, type }) {
       return state;
   }
 }
+
+export function highlightedRowReducer(state=null, { payload, type }) {
+  switch (type) {
+    case ACTIONS.HIGHLIGHT_ROW:
+      return payload;
+
+    default:
+      return state;
+  }
+}
